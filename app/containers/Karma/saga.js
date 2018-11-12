@@ -4,21 +4,20 @@ import { FETCH_STAKE } from './constants';
 import { fetchedStake } from './actions';
 
 const stakeTable = {
-    json: true,
-    //scope: scope is the user
-    code: 'therealkarma',
-    table: 'power',
-    limit: 500
-}
+  json: true,
+  // scope: scope is the user
+  code: 'therealkarma',
+  table: 'power',
+  limit: 500,
+};
 
 const refundTable = {
-    json: true,
-    //scope: scope is the user
-    code: 'therealkarma',
-    table: 'refunding',
-    limit: 500
-}
-
+  json: true,
+  // scope: scope is the user
+  code: 'therealkarma',
+  table: 'refunding',
+  limit: 500,
+};
 
 //
 // Get the network Stake
@@ -32,13 +31,13 @@ function* getStake() {
     const stake = {
       ...stakeTable,
       scope: currentIdentity.name,
-    }
+    };
     const stakes = yield networkReader.getTableRows(stake);
 
     const refund = {
       ...refundTable,
       scope: currentIdentity.name,
-    }
+    };
     const refunds = yield networkReader.getTableRows(refund);
 
     stakes.rows.map(row => {
@@ -55,7 +54,6 @@ function* getStake() {
         last_claim_time: row.request_time,
       });
     });
-
 
     yield put(fetchedStake(data));
   } catch (err) {

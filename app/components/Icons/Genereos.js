@@ -21,11 +21,15 @@ const style = {
     verticalAlign: 'middle',
     border: '0',
   },
-}
+};
 
-const Icon = (props) => {
-  const {classes} = props;
-  return (<div className={classes.logoMini}><img src={GenereosIcon} className={classes.img}/></div>);
+const Icon = props => {
+  const { classes } = props;
+  return (
+    <div className={classes.logoMini}>
+      <img src={GenereosIcon} className={classes.img} />
+    </div>
+  );
 };
 
 export default withStyles(style)(Icon);

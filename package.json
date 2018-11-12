@@ -48,7 +48,6 @@
   "lint-staged": {
     "*.js": "lint:eslint"
   },
-  "pre-commit": "lint:staged, test",
   "dllPlugin": {
     "path": "node_modules/react-boilerplate-dlls",
     "exclude": [

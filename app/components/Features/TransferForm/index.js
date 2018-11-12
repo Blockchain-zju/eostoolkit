@@ -80,7 +80,7 @@ const enhance = compose(
       const { pushTransaction, eosTokens } = props;
       const transaction = makeTransaction(values, eosTokens);
       setSubmitting(false);
-      pushTransaction(transaction,props.history);
+      pushTransaction(transaction, props.history);
     },
     mapPropsToValues: props => ({
       owner: props.networkIdentity ? props.networkIdentity.name : '',

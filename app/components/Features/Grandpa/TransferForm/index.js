@@ -24,8 +24,8 @@ const makeTransaction = (values, token, networkIdentity) => {
         to: values.name,
         memo: values.memo,
         quantity: `${Number(values.quantity)
-            .toFixed(4)
-            .toString()} ${token}`
+          .toFixed(4)
+          .toString()} ${token}`,
       },
     },
   ];
@@ -34,8 +34,7 @@ const makeTransaction = (values, token, networkIdentity) => {
 
 const validationSchema = Yup.object().shape({
   memo: Yup.string(),
-  name: Yup.string()
-    .required('Quantity is required'),
+  name: Yup.string().required('Quantity is required'),
   quantity: Yup.number()
     .required('Quantity is required')
     .positive('You must send a positive quantity'),
@@ -43,10 +42,10 @@ const validationSchema = Yup.object().shape({
 
 const BuyRamForm = props => {
   return (
-      <ToolBody color="warning" icon={Send} header="Transfer" subheader="- Transfer as much as possible to win!">
-        <p>There is a 15% fee on all transfers. Become Chief Miner to get 10% fees.</p>
-        <FormObject {...props} />
-      </ToolBody>
+    <ToolBody color="warning" icon={Send} header="Transfer" subheader="- Transfer as much as possible to win!">
+      <p>There is a 15% fee on all transfers. Become Chief Miner to get 10% fees.</p>
+      <FormObject {...props} />
+    </ToolBody>
   );
 };
 
@@ -56,8 +55,8 @@ const enhance = compose(
       token: 'BTC',
     },
     {
-      handleToken: (token) => (token) => ({
-        token: token,
+      handleToken: token => token => ({
+        token,
       }),
     }
   ),
@@ -78,7 +77,7 @@ const enhance = compose(
       setSubmitting(false);
       const transaction = makeTransaction(values, token, networkIdentity);
       setSubmitting(false);
-      pushTransaction(transaction,props.history);
+      pushTransaction(transaction, props.history);
     },
     mapPropsToValues: props => ({
       quantity: 1,

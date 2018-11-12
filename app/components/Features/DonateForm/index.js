@@ -66,7 +66,7 @@ const enhance = compose(
       const { pushTransaction, networkIdentity } = props;
       const transaction = makeTransaction(values, networkIdentity);
       setSubmitting(false);
-      pushTransaction(transaction,props.history);
+      pushTransaction(transaction, props.history);
     },
     mapPropsToValues: () => ({
       quantity: '1',

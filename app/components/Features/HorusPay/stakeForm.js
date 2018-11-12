@@ -37,7 +37,6 @@ const FormData = [
   },
 ];
 
-
 const FormObject = props => {
   const { handleSubmit } = props;
   const formProps = {
@@ -55,7 +54,7 @@ const FormObject = props => {
 };
 
 const makeTransaction = values => {
-  const {stake, transfer, ...otherValues} = values;
+  const { stake, transfer, ...otherValues } = values;
   const transaction = [
     {
       account: 'horustokenio',
@@ -93,7 +92,7 @@ const enhance = compose(
       const { pushTransaction } = props;
       const transaction = makeTransaction(values);
       setSubmitting(false);
-      pushTransaction(transaction,props.history);
+      pushTransaction(transaction, props.history);
     },
     mapPropsToValues: props => ({
       from: props.networkIdentity ? props.networkIdentity.name : '',

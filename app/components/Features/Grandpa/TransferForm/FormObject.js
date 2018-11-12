@@ -26,7 +26,7 @@ const FormData = [
     id: 'memo',
     label: 'Memo',
     placeholder: 'Memo for the recipient',
-    lg:12,
+    lg: 12,
   },
 ];
 

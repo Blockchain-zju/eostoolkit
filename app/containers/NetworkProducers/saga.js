@@ -39,7 +39,7 @@ function* getProducers() {
 
     while (data.more) {
       data = yield networkReader.getTableRows(producerTable(key));
-      if(data.more) {
+      if (data.more) {
         key = data.rows.pop().owner;
       }
       data.rows.map(row => {

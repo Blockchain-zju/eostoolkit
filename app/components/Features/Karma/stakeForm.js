@@ -23,16 +23,15 @@ const FormData = [
     id: 'owner',
     label: 'Account',
     placeholder: 'Account that provides the stake',
-    lg:12
+    lg: 12,
   },
   {
     id: 'quantity',
     label: 'Quantity',
     placeholder: 'Amount of KARMA to POWER UP',
-    lg:12
+    lg: 12,
   },
 ];
-
 
 const FormObject = props => {
   const { handleSubmit } = props;
@@ -51,7 +50,7 @@ const FormObject = props => {
 };
 
 const makeTransaction = values => {
-  const {quantity, owner} = values;
+  const { quantity, owner } = values;
   const transaction = [
     {
       account: 'therealkarma',
@@ -88,7 +87,7 @@ const enhance = compose(
       const { pushTransaction } = props;
       const transaction = makeTransaction(values);
       setSubmitting(false);
-      pushTransaction(transaction,props.history);
+      pushTransaction(transaction, props.history);
     },
     mapPropsToValues: props => ({
       owner: props.networkIdentity ? props.networkIdentity.name : '',

@@ -46,11 +46,11 @@ const validationSchema = Yup.object().shape({
 
 const DonateForm = props => {
   return (
-        <ToolBody color="danger" icon={TrendingUp} header="Usurp the Chief" subheader=" - Earn 10% fees from all activity">
-          <p>Pay the Usurp Fee to become Chief Miner!</p>
-          <p>The Chief Miner earns 10% on mining and transfers by all others!</p>
-          <FormObject {...props} />
-        </ToolBody>
+    <ToolBody color="danger" icon={TrendingUp} header="Usurp the Chief" subheader=" - Earn 10% fees from all activity">
+      <p>Pay the Usurp Fee to become Chief Miner!</p>
+      <p>The Chief Miner earns 10% on mining and transfers by all others!</p>
+      <FormObject {...props} />
+    </ToolBody>
   );
 };
 
@@ -60,7 +60,7 @@ const enhance = compose(
       const { pushTransaction, networkIdentity } = props;
       const transaction = makeTransaction(values, networkIdentity);
       setSubmitting(false);
-      pushTransaction(transaction,props.history);
+      pushTransaction(transaction, props.history);
     },
     mapPropsToValues: () => ({
       quantity: '1',

@@ -38,12 +38,6 @@ const NetworkForm = props => {
             <h4 className={classes.cardIconTitle}>Select a network</h4>
           </CardHeader>
           <CardBody>
-            <h6>
-              Get your testnet or endpoint added to this list by submitting a pull request to{' '}
-              <a href="https://github.com/eostoolkit/eos-networks" target="new">
-                GitHub
-              </a>
-            </h6>
             <NetworkTable {...tableProps} />
           </CardBody>
         </Card>

@@ -7,8 +7,8 @@ import ToolBody from 'components/Tool/ToolBody';
 import GridContainer from 'components/Grid/GridContainer';
 import GridItem from 'components/Grid/GridItem';
 import Button from 'components/CustomButtons/Button';
-import Card from "components/Card/Card";
-import CardAvatar from "components/Card/CardAvatar";
+import Card from 'components/Card/Card';
+import CardAvatar from 'components/Card/CardAvatar';
 import CardBody from 'components/Card/CardBody';
 import CardHeader from 'components/Card/CardHeader';
 
@@ -30,20 +30,20 @@ const MinerTable = props => {
   const { token, symbol, loading, classes, ...clientProps } = props;
   const velocity = token ? token.velocity : null;
   const quantity = token ? token.quantity : null;
-  const avatars = {'ETH': ethereum,'BTC': bitcoin,'DOGE': dogecoin};
+  const avatars = { ETH: ethereum, BTC: bitcoin, DOGE: dogecoin };
 
-  //balance
-  //velocity
-  //quantity
-  //supply
-  //last_transfer
+  // balance
+  // velocity
+  // quantity
+  // supply
+  // last_transfer
 
   return (
     <Card profile>
-        <CardAvatar profile>
-            <img src={avatars[symbol]} alt="..." />
-        </CardAvatar>
-        <CardBody profile>
+      <CardAvatar profile>
+        <img src={avatars[symbol]} alt="..." />
+      </CardAvatar>
+      <CardBody profile>
         <div className={classes.tableResponsive}>
           <Table className={classes.table}>
             <TableBody>
@@ -57,36 +57,43 @@ const MinerTable = props => {
               </TableRow>
               <TableRow className={`${classes.tableStripedRow} ${classes.tableRowHover}`}>
                 <TableCell className={classes.tableCell}>My Volume</TableCell>
-                <TableCell className={classes.tableCell}>{token ? (token.account.quantity ? token.account.quantity : `0.0000 ${symbol}`) : 'Loading'}</TableCell>
+                <TableCell className={classes.tableCell}>
+                  {token ? (token.account.quantity ? token.account.quantity : `0.0000 ${symbol}`) : 'Loading'}
+                </TableCell>
               </TableRow>
               <TableRow className={`${classes.tableRowHover}`}>
                 <TableCell className={classes.tableCell}>Highest Volume</TableCell>
-                <TableCell className={classes.tableCell}>{quantity ? `${quantity.owner} (${quantity.value/10000} ${symbol})` : 'Loading'}</TableCell>
+                <TableCell className={classes.tableCell}>
+                  {quantity ? `${quantity.owner} (${quantity.value / 10000} ${symbol})` : 'Loading'}
+                </TableCell>
               </TableRow>
               <TableRow className={`${classes.tableStripedRow} ${classes.tableRowHover}`}>
                 <TableCell className={classes.tableCell}>My Velocity</TableCell>
-                <TableCell className={classes.tableCell}>{token ? `${token.account.velocity ? token.account.velocity : 0} tx` : 'Loading'}</TableCell>
+                <TableCell className={classes.tableCell}>
+                  {token ? `${token.account.velocity ? token.account.velocity : 0} tx` : 'Loading'}
+                </TableCell>
               </TableRow>
               <TableRow className={`${classes.tableRowHover}`}>
                 <TableCell className={classes.tableCell}>Highest Velocity</TableCell>
-                <TableCell className={classes.tableCell}>{velocity ? `${velocity.owner} (${velocity.value} tx)` : 'Loading'}</TableCell>
+                <TableCell className={classes.tableCell}>
+                  {velocity ? `${velocity.owner} (${velocity.value} tx)` : 'Loading'}
+                </TableCell>
               </TableRow>
               <TableRow className={`${classes.tableStripedRow} ${classes.tableRowHover}`}>
                 <TableCell className={classes.tableCell}>My Referrer</TableCell>
-                <TableCell className={classes.tableCell}>{token ? (token.account.referrer ? token.account.referrer : 'None') : 'Loading'}</TableCell>
+                <TableCell className={classes.tableCell}>
+                  {token ? (token.account.referrer ? token.account.referrer : 'None') : 'Loading'}
+                </TableCell>
               </TableRow>
               <TableRow className={`${classes.tableRowHover}`}>
                 <TableCell className={classes.tableCell}>Last Transfer By</TableCell>
                 <TableCell className={classes.tableCell}>{token ? token.last_transfer : 'Loading'}</TableCell>
               </TableRow>
-
             </TableBody>
           </Table>
         </div>
-
-
-                </CardBody>
-              </Card>
+      </CardBody>
+    </Card>
   );
 };
 

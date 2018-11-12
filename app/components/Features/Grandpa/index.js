@@ -22,8 +22,8 @@ const makeClaim = (values, networkIdentity, referrer) => {
   const data = {
     owner: networkIdentity ? networkIdentity.name : '',
     sym: `4,${values}`,
-    referrer: referrer,
-  }
+    referrer,
+  };
   const transaction = [
     {
       account: 'grandpacoins',
@@ -35,12 +35,12 @@ const makeClaim = (values, networkIdentity, referrer) => {
 };
 
 const Grandpa = props => {
-  const { pushTransaction, networkIdentity, networkAccount, miner} = props;
-  const referrer = props.location.search ? props.location.search.split('=')[1] : "";
+  const { pushTransaction, networkIdentity, networkAccount, miner } = props;
+  const referrer = props.location.search ? props.location.search.split('=')[1] : '';
 
   const handleClaims = values => {
     const transaction = makeClaim(values, networkIdentity, referrer);
-    pushTransaction(transaction,props.history);
+    pushTransaction(transaction, props.history);
   };
 
   const refLink = `https://eostoolkit.io/grandpacoins?r=${networkIdentity ? networkIdentity.name : 'youracctname'}`;
@@ -53,20 +53,30 @@ const Grandpa = props => {
           icon={Info}
           header="GrandpaCoins"
           subheader=" - Grandfathered coins fighting for supremecy on EOS">
-          <GrandpaInfo/>
-          <h5>Your referral link: <a href={refLink} target="new">{refLink}</a></h5>
+          <GrandpaInfo />
+          <h5>
+            Your referral link:{' '}
+            <a href={refLink} target="new">
+              {refLink}
+            </a>
+          </h5>
         </ToolBody>
       </ToolSection>
       <ToolSection lg={6}>
-        <MineTable tokens={['BTC','ETH','DOGE']} stats={miner ? miner.stats : null} handleSubmit={handleClaims} referrer={referrer}/>
-        <MinerTable {...props}/>
-        <Usurp {...props}/>
-        <Transfer {...props}/>
+        <MineTable
+          tokens={['BTC', 'ETH', 'DOGE']}
+          stats={miner ? miner.stats : null}
+          handleSubmit={handleClaims}
+          referrer={referrer}
+        />
+        <MinerTable {...props} />
+        <Usurp {...props} />
+        <Transfer {...props} />
       </ToolSection>
       <ToolSection lg={6}>
-        <TokenTable token={miner ? miner.stats.find(s=>s.token==='BTC') : null} symbol={'BTC'}/>
-        <TokenTable token={miner ? miner.stats.find(s=>s.token==='ETH') : null} symbol={'ETH'} />
-        <TokenTable token={miner ? miner.stats.find(s=>s.token==='DOGE') : null} symbol={'DOGE'} />
+        <TokenTable token={miner ? miner.stats.find(s => s.token === 'BTC') : null} symbol={'BTC'} />
+        <TokenTable token={miner ? miner.stats.find(s => s.token === 'ETH') : null} symbol={'ETH'} />
+        <TokenTable token={miner ? miner.stats.find(s => s.token === 'DOGE') : null} symbol={'DOGE'} />
       </ToolSection>
     </Tool>
   );

@@ -1,11 +1,17 @@
-//import Ping from 'ping.js';
+// import Ping from 'ping.js';
 import Ping from 'utils/ping';
 import { orderBy } from 'lodash';
 import { put, all, join, fork, select, call, spawn } from 'redux-saga/effects';
 import { tokensUrl, networksUrl, claimsUrl } from 'remoteConfig';
 
 import { loadedNetworks, updateNetworks, loadedAccount, setNetwork } from '../actions';
-import { makeSelectIdentity, makeSelectReader, makeSelectTokens, makeSelectNetworks, makeSelectActiveNetwork } from '../selectors';
+import {
+  makeSelectIdentity,
+  makeSelectReader,
+  makeSelectTokens,
+  makeSelectNetworks,
+  makeSelectActiveNetwork,
+} from '../selectors';
 
 /*
 *
@@ -28,17 +34,19 @@ export function* fetchNetworks() {
           ...endpoint,
           failures: 0,
           ping: -1,
-        }
-      })
+        };
+      });
       return {
         ...networkDetails,
         endpoints: endpointDetails,
-      }
+      };
     });
 
     // get default
-    const network = networks.find(n => n.network === 'eos' && n.type === 'mainnet');
-    const endpoint = network.endpoints.find(e => e.name === 'Greymass');
+    const network = networks.find(
+      n => n.chainId === '5fff1dae8dc8e2fc4d5b23b2c7665c97f9e9d8edf2b6485a86ba311c25639191'
+    );
+    const endpoint = network.endpoints.find(e => e.name === 'eosasia');
 
     // build activeNetwork
     const activeNetwork = {
@@ -53,19 +61,18 @@ export function* fetchNetworks() {
   }
 }
 
-
 function* makeEndpointsLatency(endpoint) {
-  const {ping, ...endpointDetails} = endpoint;
+  const { ping, ...endpointDetails } = endpoint;
 
   try {
     return {
       ...endpointDetails,
-      ping: yield call(Ping,`${endpoint.protocol}://${endpoint.url}:${endpoint.port}/v1/chain/get_info`)
+      ping: yield call(Ping, `${endpoint.protocol}://${endpoint.url}:${endpoint.port}/v1/chain/get_info`),
     };
   } catch (c) {
     return {
       ...endpointDetails,
-      ping: 5000
+      ping: 5000,
     };
   }
 }
@@ -73,35 +80,36 @@ function* makeEndpointsLatency(endpoint) {
 export function* fetchLatency() {
   try {
     // fetch the remote network list
-    let networks = yield select(makeSelectNetworks());
+    const networks = yield select(makeSelectNetworks());
     const active = yield select(makeSelectActiveNetwork());
 
-    const activeIndex = networks.findIndex(network=>{
+    const activeIndex = networks.findIndex(network => {
       return network.chainId === active.network.chainId;
     });
 
     let endpoints = networks[activeIndex].endpoints;
 
-    const latencies = yield all(endpoints.map(endpoint => {
-      return fork(makeEndpointsLatency,endpoint)
-    }));
+    const latencies = yield all(
+      endpoints.map(endpoint => {
+        return fork(makeEndpointsLatency, endpoint);
+      })
+    );
 
     endpoints = yield join(...latencies);
     networks[activeIndex].endpoints = endpoints;
     yield put(updateNetworks(networks));
 
-    const sorted = orderBy(endpoints, ['failures','ping'], 'asc');
+    const sorted = orderBy(endpoints, ['failures', 'ping'], 'asc');
     const best = sorted[0];
 
-    if(active.endpoint.name !== best.name) {
+    if (active.endpoint.name !== best.name) {
       const activeNetwork = {
         network: networks[activeIndex],
         endpoint: best,
       };
 
-      yield put(setNetwork(activeNetwork,false));
+      yield put(setNetwork(activeNetwork, false));
     }
-
   } catch (err) {
     console.error('An EOSToolkit error occured - see details below:');
     console.error(err);
@@ -142,11 +150,11 @@ export function* fetchTokens(reader) {
 
     const tokenList = [
       {
-        symbol: "EOS",
-        account: "eosio.token"
+        symbol: 'EOS',
+        account: 'eosio.token',
       },
-      ...list
-    ]
+      ...list,
+    ];
     const info = yield all(
       tokenList.map(token => {
         return fork(fetchTokenInfo, reader, token.account, token.symbol);
@@ -236,16 +244,16 @@ function* getCurrency(reader, token, name) {
     });
     return currencies;
   } catch (c) {
-    let networks = yield select(makeSelectNetworks());
+    const networks = yield select(makeSelectNetworks());
     const active = yield select(makeSelectActiveNetwork());
 
-    const activeIndex = networks.findIndex(network=>{
+    const activeIndex = networks.findIndex(network => {
       return network.chainId === active.network.chainId;
-    })
+    });
 
-    const endpointIndex = networks[activeIndex].endpoints.findIndex(endpoint=>{
+    const endpointIndex = networks[activeIndex].endpoints.findIndex(endpoint => {
       return endpoint.name === active.endpoint.name;
-    })
+    });
 
     networks[activeIndex].endpoints[endpointIndex].failures += 1;
 
@@ -255,7 +263,7 @@ function* getCurrency(reader, token, name) {
 }
 
 function onlyUnique(value, index, self) {
-    return self.indexOf(value) === index;
+  return self.indexOf(value) === index;
 }
 
 function* getAccountDetail(reader, name) {
@@ -269,15 +277,14 @@ function* getAccountDetail(reader, name) {
     );
 
     const currencies = yield join(...tokenData);
-    const balances = currencies.reduce((a, b) => a.concat(b), []);//.filter( onlyUnique );
+    const balances = currencies.reduce((a, b) => a.concat(b), []); // .filter( onlyUnique );
     const unique = [...new Set(balances.map(item => item.balance))];
     const final = unique.map(bal => {
-      const tokenFind = tokens.find(t=>t.symbol === bal.split(' ')[1]);
+      const tokenFind = tokens.find(t => t.symbol === bal.split(' ')[1]);
       return {
         account: tokenFind ? tokenFind.account : 'grandpacoins',
         balance: bal,
-      }
-
+      };
     });
     yield spawn(fetchLatency);
     return {

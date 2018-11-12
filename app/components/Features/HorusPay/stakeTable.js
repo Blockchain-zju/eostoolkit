@@ -17,7 +17,7 @@ const HorusPay = props => {
   const { stakes, loading, ...clientProps } = props;
   const { networkAccount, networkIdentity, writerEnabled, pushTransaction } = clientProps;
 
-  const handleClaim = (stake) => {
+  const handleClaim = stake => {
     const transaction = [
       {
         account: 'horustokenio',
@@ -28,10 +28,10 @@ const HorusPay = props => {
         },
       },
     ];
-    pushTransaction(transaction,props.history);
+    pushTransaction(transaction, props.history);
   };
 
-  const handleUnstake = (stake) => {
+  const handleUnstake = stake => {
     const transaction = [
       {
         account: 'horustokenio',
@@ -42,10 +42,10 @@ const HorusPay = props => {
         },
       },
     ];
-    pushTransaction(transaction,props.history);
+    pushTransaction(transaction, props.history);
   };
 
-  const handleRefund = (stake) => {
+  const handleRefund = stake => {
     const transaction = [
       {
         account: 'horustokenio',
@@ -56,34 +56,49 @@ const HorusPay = props => {
         },
       },
     ];
-    pushTransaction(transaction,props.history);
+    pushTransaction(transaction, props.history);
   };
 
   let totalHorusStake = 0;
 
   const data = stakes.map(stake => {
-    if(stake.type==='Stake') totalHorusStake += Number(stake.horus_weight.split(' ')[0]);
-    const refundTime = new Date((stake.time_initial+604800)*1000);
+    if (stake.type === 'Stake') totalHorusStake += Number(stake.horus_weight.split(' ')[0]);
+    const refundTime = new Date((stake.time_initial + 604800) * 1000);
     return {
       ...stake,
-      actions: stake.type === 'Refund' ? (
-        refundTime < Date.now() ? (
-          <div className="actions-right"><Button
-            onClick={() => {handleRefund(stake)}}
-            color="success">Refund</Button></div>
+      actions:
+        stake.type === 'Refund' ? (
+          refundTime < Date.now() ? (
+            <div className="actions-right">
+              <Button
+                onClick={() => {
+                  handleRefund(stake);
+                }}
+                color="success">
+                Refund
+              </Button>
+            </div>
+          ) : (
+            <div className="actions-right">Available on {refundTime.toLocaleString()}</div>
+          )
         ) : (
-          <div className="actions-right">Available on {refundTime.toLocaleString()}</div>
-        )
-      ) : (
-        <div className="actions-right">
-          <Button
-            onClick={() => {handleUnstake(stake)}}
-            color="warning">Unstake</Button>{" "}
-          <Button
-            onClick={() => {handleClaim(stake)}}
-            color="success">Claim</Button>
-        </div>
-      ),
+          <div className="actions-right">
+            <Button
+              onClick={() => {
+                handleUnstake(stake);
+              }}
+              color="warning">
+              Unstake
+            </Button>{' '}
+            <Button
+              onClick={() => {
+                handleClaim(stake);
+              }}
+              color="success">
+              Claim
+            </Button>
+          </div>
+        ),
     };
   });
 
@@ -91,12 +106,13 @@ const HorusPay = props => {
     <ToolBody
       color="warning"
       icon={AccountBalance}
-      header="Your HorusPay Stakes" subheader=" - These stakes are earning you ECASH">
+      header="Your HorusPay Stakes"
+      subheader=" - These stakes are earning you ECASH">
       <h3>Total Stake: {Number(totalHorusStake).toFixed(4)} HORUS</h3>
       <ReactTable
         data={data}
         filterable
-        noDataText={loading ? (<CircularProgress color="secondary" />) : ('No active stakes found')}
+        noDataText={loading ? <CircularProgress color="secondary" /> : 'No active stakes found'}
         columns={[
           {
             Header: 'Type',
@@ -118,9 +134,9 @@ const HorusPay = props => {
             accessor: 'time_initial',
             filterable: false,
             Cell: row => {
-              const date = new Date(row.value*1000);
-              return (`${date.toLocaleString()}`);
-            }
+              const date = new Date(row.value * 1000);
+              return `${date.toLocaleString()}`;
+            },
           },
           {
             Header: 'Actions',
@@ -132,7 +148,7 @@ const HorusPay = props => {
         ]}
         defaultPageSize={50}
         pageSize={data.length}
-        showPaginationTop = {false}
+        showPaginationTop={false}
         showPaginationBottom={false}
         className="-striped -highlight"
       />

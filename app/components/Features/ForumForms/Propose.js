@@ -69,8 +69,8 @@ const FormObject = props => {
 const makeTransaction = values => {
   const { content, question, ...otherValues } = values;
 
-  let today = new Date();
-  today.setMonth(today.getMonth()+4);
+  const today = new Date();
+  today.setMonth(today.getMonth() + 4);
 
   const transaction = [
     {
@@ -79,7 +79,7 @@ const makeTransaction = values => {
       data: {
         ...otherValues,
         proposal_json: `{"type": "bps-proposal-v1", "question":"${question}", "content":"${content}"}`,
-        expires_at: today.toISOString().slice(0,-5),
+        expires_at: today.toISOString().slice(0, -5),
       },
     },
   ];
@@ -129,7 +129,7 @@ const enhance = compose(
       const { pushTransaction } = props;
       const transaction = makeTransaction(values);
       setSubmitting(false);
-      pushTransaction(transaction,props.history);
+      pushTransaction(transaction, props.history);
     },
     mapPropsToValues: props => ({
       proposer: props.networkIdentity ? props.networkIdentity.name : '',

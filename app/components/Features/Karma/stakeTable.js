@@ -14,8 +14,8 @@ const Karma = props => {
   const { stakes, loading, ...clientProps } = props;
   const { networkAccount, networkIdentity, writerEnabled, pushTransaction } = clientProps;
 
-  const claimDelay   = 7*24*3600*1000; // 7 days for LIVE, 30 minutes for TEST
-  const refundDelay  = 3*24*3600*1000; // 3 days for LIVE, 15 minutes for TEST
+  const claimDelay = 7 * 24 * 3600 * 1000; // 7 days for LIVE, 30 minutes for TEST
+  const refundDelay = 3 * 24 * 3600 * 1000; // 3 days for LIVE, 15 minutes for TEST
 
   let karmaLiquid = 0;
   let karmaStaked = 0;
@@ -23,30 +23,30 @@ const Karma = props => {
   let claimTime = 0;
   let refundTime = 0;
 
-  let hasStaked = stakes.find(s=>s.owner !== 'Refunding');
-  let hasRefund = stakes.find(s=>s.owner === 'Refunding');
+  const hasStaked = stakes.find(s => s.owner !== 'Refunding');
+  const hasRefund = stakes.find(s => s.owner === 'Refunding');
 
-  if(networkAccount) {
-    let hasKarma = networkAccount.balances.find(b=>b.account === 'therealkarma');
+  if (networkAccount) {
+    const hasKarma = networkAccount.balances.find(b => b.account === 'therealkarma');
 
-    if(hasKarma) {
+    if (hasKarma) {
       karmaLiquid = Number(hasKarma.balance.split(' ')[0]);
     }
-    if(hasStaked) {
+    if (hasStaked) {
       karmaStaked = Number(hasStaked.weight.split(' ')[0]);
-      claimTime = (hasStaked.last_claim_time/1000)+claimDelay;
+      claimTime = hasStaked.last_claim_time / 1000 + claimDelay;
     }
-    if(hasRefund) {
+    if (hasRefund) {
       karmaRefund = Number(hasRefund.weight.split(' ')[0]);
-      refundTime = (hasRefund.last_claim_time/1000)+refundDelay;
+      refundTime = hasRefund.last_claim_time / 1000 + refundDelay;
     }
   }
 
-  let claimDate = new Date(claimTime);
-  let refundDate = new Date(refundTime);
+  const claimDate = new Date(claimTime);
+  const refundDate = new Date(refundTime);
   const totalKarma = karmaLiquid + karmaStaked + karmaRefund;
 
-  const handleClaim = (stake) => {
+  const handleClaim = stake => {
     const transaction = [
       {
         account: 'therealkarma',
@@ -56,10 +56,10 @@ const Karma = props => {
         },
       },
     ];
-    pushTransaction(transaction,props.history);
+    pushTransaction(transaction, props.history);
   };
 
-  const handleRefund = (stake) => {
+  const handleRefund = stake => {
     const transaction = [
       {
         account: 'therealkarma',
@@ -69,42 +69,52 @@ const Karma = props => {
         },
       },
     ];
-    pushTransaction(transaction,props.history);
+    pushTransaction(transaction, props.history);
   };
 
   return (
-    <ToolBody
-      color="warning"
-      icon={AccountBalance}
-      header="Your KARMA" subheader=" - Good KARMA grows!">
+    <ToolBody color="warning" icon={AccountBalance} header="Your KARMA" subheader=" - Good KARMA grows!">
       <h3>Total KARMA</h3>
-      <h2 style={{marginTop:'-10px'}}>{Number(totalKarma).toFixed(4)}</h2>
-      <h4 style={{marginTop:'-10px'}}>Powered Up</h4>
-      <h3 style={{marginTop:'-10px'}}>
+      <h2 style={{ marginTop: '-10px' }}>{Number(totalKarma).toFixed(4)}</h2>
+      <h4 style={{ marginTop: '-10px' }}>Powered Up</h4>
+      <h3 style={{ marginTop: '-10px' }}>
         {karmaStaked > 0 ? Number(karmaStaked).toFixed(4) : 'None - Power Up to Earn More!'}
       </h3>
       {karmaStaked > 0 ? (
         claimDate < new Date() ? (
-          <Button onClick={() => {handleClaim(hasStaked)}} color="success">Claim</Button>
+          <Button
+            onClick={() => {
+              handleClaim(hasStaked);
+            }}
+            color="success">
+            Claim
+          </Button>
         ) : (
           <p>Claim your rewards on {claimDate.toLocaleString()}</p>
         )
-      ):('')}
-
+      ) : (
+        ''
+      )}
 
       {karmaRefund > 0 ? (
         <React.Fragment>
           <h4>Refunding</h4>
           {refundDate < new Date() ? (
-            <Button onClick={() => {handleRefund(hasRefund)}} color="success">Refund</Button>
+            <Button
+              onClick={() => {
+                handleRefund(hasRefund);
+              }}
+              color="success">
+              Refund
+            </Button>
           ) : (
-            <p style={{marginTop:'-10px'}}>Available on {new Date(refundTime).toLocaleString()}</p>
+            <p style={{ marginTop: '-10px' }}>Available on {new Date(refundTime).toLocaleString()}</p>
           )}
-          <h3 style={{marginTop:'-10px'}}>{Number(karmaRefund).toFixed(4)}</h3>
+          <h3 style={{ marginTop: '-10px' }}>{Number(karmaRefund).toFixed(4)}</h3>
         </React.Fragment>
-      ): ('')}
-
-
+      ) : (
+        ''
+      )}
     </ToolBody>
   );
 };

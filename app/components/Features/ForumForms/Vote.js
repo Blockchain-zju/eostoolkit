@@ -82,7 +82,7 @@ const FormObject = props => {
 //   }
 // }
 
-const makeTransaction = (values) => {
+const makeTransaction = values => {
   const { vote, ...otherValues } = values;
   const transaction = [
     {
@@ -150,7 +150,7 @@ const enhance = compose(
       loading();
       setSubmitting(false);
       const transaction = makeTransaction(values);
-      pushTransaction(transaction,props.history);      
+      pushTransaction(transaction, props.history);
     },
     mapPropsToValues: props => ({
       voter: props.networkIdentity ? props.networkIdentity.name : '',

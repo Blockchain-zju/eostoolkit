@@ -4,13 +4,12 @@ import { FETCH_PROXIES } from './constants';
 import { fetchedProxies } from './actions';
 
 const proxyTable = {
-    json: true,
-    scope: 'regproxyinfo',
-    code: 'regproxyinfo',
-    table: 'proxies',
-    limit: 500
-}
-
+  json: true,
+  scope: 'regproxyinfo',
+  code: 'regproxyinfo',
+  table: 'proxies',
+  limit: 500,
+};
 
 //
 // Get the network Proxies
