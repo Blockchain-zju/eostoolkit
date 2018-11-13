@@ -1,21 +1,21 @@
-import React from 'react';
-import classNames from 'classnames';
-import PropTypes from 'prop-types';
+import React from "react";
+import classNames from "classnames";
+import PropTypes from "prop-types";
 // import { Manager, Target, Popper } from 'react-popper';
 
 // @material-ui/core components
-import withStyles from '@material-ui/core/styles/withStyles';
+import withStyles from "@material-ui/core/styles/withStyles";
 
 // core components
-import logo from 'assets/img/genereosWhite.png';
+import logo from "assets/img/logo.png";
 
-import VoteUs from 'components/Features/VoteUs';
+import VoteUs from "components/Features/VoteUs";
 
-import headerLinksStyle from './headerLinksStyle';
+import headerLinksStyle from "./headerLinksStyle";
 
 class HeaderLinks extends React.Component {
   state = {
-    open: false,
+    open: false
   };
   handleClick = () => {
     this.setState({ open: !this.state.open });
@@ -23,6 +23,7 @@ class HeaderLinks extends React.Component {
   handleClose = () => {
     this.setState({ open: false });
   };
+
   render() {
     const { classes, rtlActive } = this.props;
     // const { open } = this.state;
@@ -33,7 +34,7 @@ class HeaderLinks extends React.Component {
     //   [classes.dropdownItemRTL]: rtlActive,
     // })}`;
     const wrapper = classNames({
-      [classes.wrapperRTL]: rtlActive,
+      [classes.wrapperRTL]: rtlActive
     });
     // const managerClasses = classNames({
     //   [classes.managerClasses]: true,
@@ -43,10 +44,8 @@ class HeaderLinks extends React.Component {
       // TODO: Or we add all our social media here
       <div className={wrapper}>
         <div className={classes.poweredBy}>
-          <span className={classes.logoNormal}>
-            <VoteUs />
-          </span>
-          <img src={logo} alt="logo" className={classes.logo} />
+          <img src={logo} alt="logo" className={classes.logo}/>
+          <span className={classes.logoWord}>浙江大学区块链协会</span>
         </div>
       </div>
       //
@@ -145,7 +144,7 @@ class HeaderLinks extends React.Component {
 }
 
 HeaderLinks.propTypes = {
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired
   // rtlActive: PropTypes.bool,
 };
 

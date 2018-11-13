@@ -18,13 +18,13 @@ const FeaturesPage = () => {
   return (
     <Tool>
       <ToolSection lg={12}>
-        <ToolBody color="info" icon={Info} header="Welcome to EOSToolkit" subheader=" - Easy access to the EOS Network">
+        <ToolBody color="info" icon={Info} header="Welcome to EOSToolkit" subheader=" - EOS区块链交互工具">
           <HomeDoc />
         </ToolBody>
       </ToolSection>
 
       <ToolSection lg={4}>
-        <ToolBody color="warning" icon={Favorite} header="Favourites">
+        <ToolBody color="warning" icon={Favorite} header="导航">
           {dashboardRoutes.map(({ icon, name, collapse, hide, redirect, path, views }) => {
             if (!redirect && !hide && !collapse) {
               return (

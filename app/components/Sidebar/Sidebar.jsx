@@ -101,7 +101,7 @@ class Sidebar extends React.Component {
                 {this.props.identity ? <ExitToApp /> : <AddBox />}
               </ListItemIcon>
               <ListItemText
-                primary={this.props.identity ? 'Detach Account' : 'Attach Account'} // TODO: Make this international
+                primary={this.props.identity ? '注销' : '登录'} // TODO: Make this international
                 disableTypography
                 className={collapseItemText}
               />
@@ -113,7 +113,7 @@ class Sidebar extends React.Component {
                 <SettingsApplications />
               </ListItemIcon>
               <ListItemText
-                primary="Change Network" // TODO: Make this international
+                primary="更换网络" // TODO: Make this international
                 disableTypography
                 className={collapseItemText}
               />
@@ -125,7 +125,7 @@ class Sidebar extends React.Component {
                 <Autorenew />
               </ListItemIcon>
               <ListItemText
-                primary={this.props.offlineMode ? 'Multisig Mode' : 'Singlesig Mode'} // TODO: Make this international
+                primary={this.props.offlineMode ? '多重签名模式' : '单签名模式'} // TODO: Make this international
                 disableTypography
                 className={collapseItemText}
               />

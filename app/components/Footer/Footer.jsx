@@ -31,7 +31,7 @@ function Footer({ ...props }) {
         <div className={classes.left}>
           <List className={classes.list}>
             <ListItem className={classes.inlineBlock}>
-              <a href="https://github.com/generEOS" className={block}>
+              <a href="https://github.com/Blockchain-zju/zjubca.eostoolkit" className={block}>
                 {'GitHub'}
               </a>
             </ListItem>
@@ -69,10 +69,10 @@ function Footer({ ...props }) {
         </div>
         <p className={classes.right}>
           &copy; {1900 + new Date().getYear()}{' '}
-          <a href="https://www.genereos.io" target="new" className={anchor}>
-            {'GenerEOS'}
+          <a href="#" target="new" className={anchor}>
+            {'ZJUBCA | 浙江大学区块链协会'}
           </a>
-          {', made with love for the EOS Community'}
+          {' EOS交互工具'}
         </p>
       </div>
     </footer>
