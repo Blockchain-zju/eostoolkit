@@ -113,7 +113,7 @@ class Sidebar extends React.Component {
                 <SettingsApplications />
               </ListItemIcon>
               <ListItemText
-                primary="更换网络" // TODO: Make this international
+                primary="切换网络" // TODO: Make this international
                 disableTypography
                 className={collapseItemText}
               />

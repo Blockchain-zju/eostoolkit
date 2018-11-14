@@ -73,14 +73,13 @@ function ResourcesTable({ ...props }) {
           <TableBody>
             <TableRow className={`${classes.tableRowHover}`}>
               <TableCell className={classes.tableCell}>
-                <h6>Load an account to view your resource utilitization and balances.</h6>
+                <h6>请点击左侧菜单的“登录”加载账户，以便显示其余额和资源使用量</h6>
               </TableCell>
             </TableRow>
             <TableRow className={`${classes.tableStripedRow} ${classes.tableRowHover}`}>
               <TableCell className={classes.tableCell}>
                 <p>
-                  If your account details keep disappearing it is because many networks are close to you. Select one
-                  manually by clicking "Change Network" to prevent this.
+                  如果你的账户信息仍未显示，可能是网络节点出现异常。请点击左侧菜单的“切换网络”选择一个可用的节点。
                 </p>
               </TableCell>
             </TableRow>

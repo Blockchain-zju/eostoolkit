@@ -3,9 +3,9 @@ import React from 'react';
 
 const Disclaimer = () => (
   <p>
-    By executing this action you are agreeing to the EOS constitution and this action{"'"}s associated ricardian
-    contract. The ricardian contract may be viewed in the Scatter approval prompt.
+    执行该action时，默认你已同意EOS公约以及该action的李嘉图合约。李嘉图合约可以在Scatter的批准提示中查阅。
   </p>
+
 );
 
 export default Disclaimer;

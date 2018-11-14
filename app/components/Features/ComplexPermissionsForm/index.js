@@ -118,17 +118,17 @@ const ComplexPermissionsForm = props => {
   return (
     <Tool>
       <ToolSection lg={12}>
-        <ToolBody color="danger" header="Important" subheader=" - Advanced EOS Users only">
-          <ComplexPermissions />
-        </ToolBody>
-      </ToolSection>
-      <ToolSection lg={12}>
         <ToolBody
           color="warning"
           icon={PersonAdd}
           header="Change Permissions"
           subheader=" - Advanced permission structures">
           <FormObject {...props} />
+        </ToolBody>
+      </ToolSection>
+      <ToolSection lg={12}>
+        <ToolBody color="danger" header="Important" subheader=" - Advanced EOS Users only">
+          <ComplexPermissions />
         </ToolBody>
       </ToolSection>
     </Tool>

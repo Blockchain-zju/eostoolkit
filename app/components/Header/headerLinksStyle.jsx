@@ -219,13 +219,6 @@ const headerLinksStyle = theme => ({
     marginRight: '18px',
     color: 'inherit',
   },
-  logoWord:{
-    float:'right',
-    textAlign:'center',
-    display:'inline-block',
-    fontSize:'24px',
-    marginTop:'32px',
-  },
   logoNormal: {
     fontFamily: "'Bebas', 'Helvetica', 'Arial', sans-serif",
     transition: 'all 300ms linear',

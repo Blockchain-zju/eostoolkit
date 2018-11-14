@@ -56,18 +56,24 @@ import {
   CloudDownload,
   Settings,
   VpnKey,
-  Games
+  Games,
+  Home
 } from "@material-ui/icons";
 import HorusIcon from "components/Icons/Horus";
 import KarmaIcon from "components/Icons/Karma";
 
 const dashRoutes = [
-  { hide: true, path: "/networks", name: "更换网络", component: Network },
+  { hide: true, path: "/networks", name: "切换网络", component: Network },
   {
     path: "/home",
     name: "首页",
-    icon: Dashboard,
+    icon: Home,
     component: FeaturesPage
+  },
+  {
+    path:"/dapp",
+    name:"DAPP市场",
+    icon:Dashboard,
   },
   // {
   //   path: '/grandpacoins',

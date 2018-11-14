@@ -157,7 +157,9 @@ class Dashboard extends React.Component {
           {this.getRoute() ? (
             <div className={classes.content}>
               <div className={classes.container}>
+                {this.props.location.pathname !=='/dapp'?(
                 <Summary />
+                ):null}
                 {switchRoutes}
               </div>
             </div>

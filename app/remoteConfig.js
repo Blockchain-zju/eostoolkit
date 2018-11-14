@@ -61,5 +61,6 @@ const airgrabs = [
 const claimsUrl = 'https://raw.githubusercontent.com/eostoolkit/eos-claims/master/claims.json';
 const tokensUrl = 'https://raw.githubusercontent.com/Blockchain-zju/eostoolkit-config/master/tokens.json';
 const networksUrl = 'https://raw.githubusercontent.com/Blockchain-zju/eostoolkit-config/master/networks.json';
+const dappsUrl = 'https://raw.githubusercontent.com/Blockchain-zju/eostoolkit-config/master/dapps.json';
 
-export { tokensUrl, networksUrl, claimsUrl, airgrabs };
+export {tokensUrl, networksUrl, claimsUrl, dappsUrl, airgrabs};

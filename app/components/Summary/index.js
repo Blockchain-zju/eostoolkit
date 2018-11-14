@@ -46,15 +46,12 @@ function Summary(props) {
               <h5 className={classes.cardIconTitle}>
                 {account
                   ? `${account.account_name} [${network.network.name} via ${network.endpoint.name}]`
-                  : 'Attach an Account'}
+                  : '登录账户'}
               </h5>
             </CardHeader>
             <CardBody>
               <Warning>
-                <h6>Having connectivity issues or Scatter not appearing when transacting?</h6>
-                <h5>
-                  <Announcement />Please ensure you have updated to the latest Scatter Desktop
-                </h5>
+                <h6>请确保您已使用最新版的Scatter并连接正常</h6>
               </Warning>
               <ResourceTable account={account} />
             </CardBody>

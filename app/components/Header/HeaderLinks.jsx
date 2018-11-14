@@ -45,7 +45,6 @@ class HeaderLinks extends React.Component {
       <div className={wrapper}>
         <div className={classes.poweredBy}>
           <img src={logo} alt="logo" className={classes.logo}/>
-          <span className={classes.logoWord}>浙江大学区块链协会</span>
         </div>
       </div>
       //
