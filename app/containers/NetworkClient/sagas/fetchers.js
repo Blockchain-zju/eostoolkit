@@ -1,17 +1,17 @@
 // import Ping from 'ping.js';
-import Ping from 'utils/ping';
-import {orderBy} from 'lodash';
-import {put, all, join, fork, select, call, spawn} from 'redux-saga/effects';
-import {tokensUrl, networksUrl, claimsUrl, dappsUrl} from 'remoteConfig';
+import Ping from "utils/ping";
+import { orderBy } from "lodash";
+import { put, all, join, fork, select, call, spawn } from "redux-saga/effects";
+import { tokensUrl, networksUrl, claimsUrl, dappsUrl } from "remoteConfig";
 
-import {loadedNetworks, updateNetworks, loadedAccount, setNetwork} from '../actions';
+import { loadedNetworks, updateNetworks, loadedAccount, setNetwork, updateDapps } from "../actions";
 import {
   makeSelectIdentity,
   makeSelectReader,
   makeSelectTokens,
   makeSelectNetworks,
-  makeSelectActiveNetwork,
-} from '../selectors';
+  makeSelectActiveNetwork
+} from "../selectors";
 
 /*
 *
@@ -28,51 +28,51 @@ export function* fetchNetworks() {
     const rawNetworks = yield data.json();
 
     const networks = rawNetworks.map(network => {
-      const {endpoints, ...networkDetails} = network;
+      const { endpoints, ...networkDetails } = network;
       const endpointDetails = endpoints.map(endpoint => {
         return {
           ...endpoint,
           failures: 0,
-          ping: -1,
+          ping: -1
         };
       });
       return {
         ...networkDetails,
-        endpoints: endpointDetails,
+        endpoints: endpointDetails
       };
     });
 
     // get default
     const network = networks.find(
-      n => n.chainId === '5fff1dae8dc8e2fc4d5b23b2c7665c97f9e9d8edf2b6485a86ba311c25639191'
+      n => n.chainId === "5fff1dae8dc8e2fc4d5b23b2c7665c97f9e9d8edf2b6485a86ba311c25639191"
     );
-    const endpoint = network.endpoints.find(e => e.name === 'eosasia');
+    const endpoint = network.endpoints.find(e => e.name === "eospace");
 
     // build activeNetwork
     const activeNetwork = {
       network,
-      endpoint,
+      endpoint
     };
 
     yield put(loadedNetworks(networks, activeNetwork));
   } catch (err) {
-    console.error('An EOSToolkit error occured - see details below:');
+    console.error("An EOSToolkit error occured - see details below:");
     console.error(err);
   }
 }
 
 function* makeEndpointsLatency(endpoint) {
-  const {ping, ...endpointDetails} = endpoint;
+  const { ping, ...endpointDetails } = endpoint;
 
   try {
     return {
       ...endpointDetails,
-      ping: yield call(Ping, `${endpoint.protocol}://${endpoint.url}:${endpoint.port}/v1/chain/get_info`),
+      ping: yield call(Ping, `${endpoint.protocol}://${endpoint.url}:${endpoint.port}/v1/chain/get_info`)
     };
   } catch (c) {
     return {
       ...endpointDetails,
-      ping: 5000,
+      ping: 5000
     };
   }
 }
@@ -99,19 +99,19 @@ export function* fetchLatency() {
     networks[activeIndex].endpoints = endpoints;
     yield put(updateNetworks(networks));
 
-    const sorted = orderBy(endpoints, ['failures', 'ping'], 'asc');
+    const sorted = orderBy(endpoints, ["failures", "ping"], "asc");
     const best = sorted[0];
 
     if (active.endpoint.name !== best.name) {
       const activeNetwork = {
         network: networks[activeIndex],
-        endpoint: best,
+        endpoint: best
       };
 
       yield put(setNetwork(activeNetwork, false));
     }
   } catch (err) {
-    console.error('An EOSToolkit error occured - see details below:');
+    console.error("An EOSToolkit error occured - see details below:");
     console.error(err);
   }
 }
@@ -125,20 +125,20 @@ export function* fetchLatency() {
 
 function* fetchTokenInfo(reader, account, symbol) {
   try {
-    if (symbol === 'OCT') throw {message: 'OCT has no STATS table - please fix!'};
+    if (symbol === "OCT") throw { message: "OCT has no STATS table - please fix!" };
     const stats = yield reader.getCurrencyStats(account, symbol);
-    const split = stats[symbol].max_supply.split(' ')[0].split('.');
+    const split = stats[symbol].max_supply.split(" ")[0].split(".");
     const precision = split.length > 1 ? split[1].length : 0;
     return {
       account,
       symbol,
-      precision,
+      precision
     };
   } catch (c) {
     return {
       account,
       symbol,
-      precision: 4,
+      precision: 4
     };
   }
 }
@@ -150,10 +150,10 @@ export function* fetchTokens(reader) {
 
     const tokenList = [
       {
-        symbol: 'EOS',
-        account: 'eosio.token',
+        symbol: "EOS",
+        account: "eosio.token"
       },
-      ...list,
+      ...list
     ];
     const info = yield all(
       tokenList.map(token => {
@@ -163,7 +163,7 @@ export function* fetchTokens(reader) {
     const tokens = yield join(...info);
     return tokens;
   } catch (err) {
-    console.error('An EOSToolkit error occured - see details below:');
+    console.error("An EOSToolkit error occured - see details below:");
     console.error(err);
     return null;
   }
@@ -175,7 +175,7 @@ export function* fetchClaims() {
     const claims = yield data.json();
     return claims;
   } catch (err) {
-    console.error('An EOSToolkit error occured - see details below:');
+    console.error("An EOSToolkit error occured - see details below:");
     console.error(err);
     return [];
   }
@@ -197,7 +197,7 @@ export function* fetchIdentity(signer, activeNetwork) {
       blockchain: activeNetwork.network.network,
       host: activeNetwork.endpoint.url,
       port: activeNetwork.endpoint.port,
-      chainId: activeNetwork.network.chainId,
+      chainId: activeNetwork.network.chainId
     };
 
     // suggest the network to the user
@@ -208,9 +208,9 @@ export function* fetchIdentity(signer, activeNetwork) {
       accounts: [
         {
           chainId: activeNetwork.network.chainId,
-          blockchain: activeNetwork.network.network,
-        },
-      ],
+          blockchain: activeNetwork.network.network
+        }
+      ]
     });
 
     const match = id && id.accounts.find(x => x.blockchain === activeNetwork.network.network);
@@ -220,7 +220,7 @@ export function* fetchIdentity(signer, activeNetwork) {
     }
     return null;
   } catch (err) {
-    console.error('An EOSToolkit error occured - see details below:');
+    console.error("An EOSToolkit error occured - see details below:");
     console.error(err);
     return null;
   }
@@ -239,7 +239,7 @@ function* getCurrency(reader, token, name) {
     const currencies = currency.map(c => {
       return {
         account: token,
-        balance: c,
+        balance: c
       };
     });
     return currencies;
@@ -280,16 +280,16 @@ function* getAccountDetail(reader, name) {
     const balances = currencies.reduce((a, b) => a.concat(b), []); // .filter( onlyUnique );
     const unique = [...new Set(balances.map(item => item.balance))];
     const final = unique.map(bal => {
-      const tokenFind = tokens.find(t => t.symbol === bal.split(' ')[1]);
+      const tokenFind = tokens.find(t => t.symbol === bal.split(" ")[1]);
       return {
-        account: tokenFind ? tokenFind.account : 'grandpacoins',
-        balance: bal,
+        account: tokenFind ? tokenFind.account : "grandpacoins",
+        balance: bal
       };
     });
     yield spawn(fetchLatency);
     return {
       ...account,
-      balances: final,
+      balances: final
     };
   } catch (c) {
     console.log(c);
@@ -308,7 +308,7 @@ export function* fetchAccount() {
       yield put(loadedAccount(null));
     }
   } catch (err) {
-    console.error('An EOSToolkit error occured - see details below:');
+    console.error("An EOSToolkit error occured - see details below:");
     console.error(err);
   }
 }
@@ -317,9 +317,10 @@ export function* fetchAccount() {
 export function* fetchDapps() {
   try {
     const data = yield fetch(dappsUrl);
-    return yield data.json();
+    const dapps = yield data.json();
+    yield put(updateDapps(dapps));
   } catch (err) {
-    console.error('An EOSToolkit error occured - see details below:');
+    console.error("An EOSToolkit error occured - see details below:");
     console.error(err);
   }
 }

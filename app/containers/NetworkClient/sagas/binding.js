@@ -1,4 +1,4 @@
-import { takeLatest, all } from 'redux-saga/effects';
+import { takeLatest, all } from "redux-saga/effects";
 
 import {
   SET_SIGNER,
@@ -11,12 +11,13 @@ import {
   SET_NETWORK,
   SET_IDENTITY,
   PUSH_TRANSACTION,
-} from '../constants';
+  LOAD_DAPPS
+} from "../constants";
 
-import { buildDispatcher, accountDispatcher } from './dispatcher';
-import { fetchNetworks, fetchAccount } from './fetchers';
-import { destroyIdentity } from './destroyers';
-import { pushTransaction } from './transaction';
+import { buildDispatcher, accountDispatcher } from "./dispatcher";
+import { fetchNetworks, fetchAccount, fetchDapps } from "./fetchers";
+import { destroyIdentity } from "./destroyers";
+import { pushTransaction } from "./transaction";
 
 // client (re)build can be triggered by signer set, networks loaded, or user request
 function* watchForClientBuild() {
@@ -48,6 +49,10 @@ function* watchTransaction() {
   yield takeLatest(PUSH_TRANSACTION, pushTransaction);
 }
 
+function* loadRemoteDapps() {
+  yield takeLatest(LOAD_DAPPS, fetchDapps);
+}
+
 export default function* rootSaga() {
   yield all([
     watchForClientBuild(),
@@ -56,5 +61,6 @@ export default function* rootSaga() {
     watchLoadAccount(),
     watchLogout(),
     watchTransaction(),
+    loadRemoteDapps()
   ]);
 }

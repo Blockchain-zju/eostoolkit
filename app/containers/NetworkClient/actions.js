@@ -12,18 +12,20 @@ import {
   SET_IDENTITY,
   PUSH_TRANSACTION,
   TOGGLE_OFFLINE,
-} from './constants';
+  LOAD_DAPPS,
+  UPDATE_DAPPS
+} from "./constants";
 
 export function setSigner(networkSigner) {
   return {
     type: SET_SIGNER,
-    networkSigner,
+    networkSigner
   };
 }
 
 export function loadNetworks() {
   return {
-    type: LOAD_NETWORKS,
+    type: LOAD_NETWORKS
   };
 }
 
@@ -31,24 +33,23 @@ export function loadedNetworks(networks, defaultNetwork) {
   return {
     type: LOADED_NETWORKS,
     networks,
-    defaultNetwork,
+    defaultNetwork
   };
 }
 
 export function updateNetworks(networks) {
   return {
     type: UPDATE_NETWORKS,
-    networks,
+    networks
   };
 }
 
-export function enableReader(networkReader, tokens, claims, dapps) {
+export function enableReader(networkReader, tokens, claims) {
   return {
     type: READER_ENABLED,
     networkReader,
     tokens,
-    claims,
-    dapps,
+    claims
   };
 }
 
@@ -56,26 +57,26 @@ export function enableWriter(networkWriter, networkIdentity) {
   return {
     type: WRITER_ENABLED,
     networkWriter,
-    networkIdentity,
+    networkIdentity
   };
 }
 
 export function disableWriter() {
   return {
-    type: WRITER_DISABLED,
+    type: WRITER_DISABLED
   };
 }
 
 export function loadAccount() {
   return {
-    type: LOAD_ACCOUNT,
+    type: LOAD_ACCOUNT
   };
 }
 
 export function loadedAccount(networkAccount) {
   return {
     type: LOADED_ACCOUNT,
-    networkAccount,
+    networkAccount
   };
 }
 
@@ -83,13 +84,13 @@ export function setNetwork(networkSelected, override) {
   return {
     type: SET_NETWORK,
     networkSelected,
-    override,
+    override
   };
 }
 
 export function setIdentity() {
   return {
-    type: SET_IDENTITY,
+    type: SET_IDENTITY
   };
 }
 
@@ -97,12 +98,25 @@ export function pushTransaction(transaction, history) {
   return {
     type: PUSH_TRANSACTION,
     transaction,
-    history,
+    history
   };
 }
 
 export function toggleOffline() {
   return {
-    type: TOGGLE_OFFLINE,
+    type: TOGGLE_OFFLINE
+  };
+}
+
+export function loadDapps() {
+  return {
+    type: LOAD_DAPPS
+  };
+}
+
+export function updateDapps(dapps) {
+  return {
+    type: UPDATE_DAPPS,
+    dapps
   };
 }

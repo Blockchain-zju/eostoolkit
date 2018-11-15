@@ -12,7 +12,7 @@ import injectSaga from 'utils/injectSaga';
 import ScatterJS from 'scatterjs-core';
 import ScatterEOS from 'scatterjs-plugin-eosjs';
 import { setSigner, loadNetworks, loadAccount } from './actions';
-import saga from './sagas/watchers';
+import saga from './sagas/binding';
 
 // we inject out reducer at the root level for lazy loading order reasons
 

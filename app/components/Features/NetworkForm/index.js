@@ -35,7 +35,7 @@ const NetworkForm = props => {
             <CardIcon color="warning">
               <Settings />
             </CardIcon>
-            <h4 className={classes.cardIconTitle}>Select a network</h4>
+            <h4 className={classes.cardIconTitle}>选择网络</h4>
           </CardHeader>
           <CardBody>
             <NetworkTable {...tableProps} />

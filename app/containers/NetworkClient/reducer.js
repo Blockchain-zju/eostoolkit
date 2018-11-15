@@ -1,4 +1,4 @@
-import { fromJS } from 'immutable';
+import { fromJS } from "immutable";
 import {
   SET_SIGNER,
   LOADED_NETWORKS,
@@ -12,7 +12,8 @@ import {
   SET_IDENTITY,
   PUSH_TRANSACTION,
   TOGGLE_OFFLINE,
-} from './constants';
+  UPDATE_DAPPS
+} from "./constants";
 
 const initialState = fromJS({
   readerLoading: true,
@@ -27,64 +28,67 @@ const initialState = fromJS({
   networks: [],
   tokens: [],
   claims: [],
+  dapps: [],
   transaction: null,
   offlineMode: false,
   override: true,
-  networkTime: 0,
+  networkTime: 0
 });
 
 function clientReducer(state = initialState, action) {
   switch (action.type) {
     case SET_SIGNER:
-      return state.set('networkSigner', action.networkSigner).set('writerLoading', true);
+      return state.set("networkSigner", action.networkSigner).set("writerLoading", true);
     case LOADED_NETWORKS:
-      return state.set('networks', action.networks).set('networkSelected', action.defaultNetwork);
+      return state.set("networks", action.networks).set("networkSelected", action.defaultNetwork);
     case UPDATE_NETWORKS:
-      return state.set('networks', action.networks);
+      return state.set("networks", action.networks);
     case READER_ENABLED:
       return state
-        .set('networkReader', action.networkReader)
-        .set('tokens', action.tokens)
-        .set('claims', action.claims)
-        .set('readerLoading', false);
+        .set("networkReader", action.networkReader)
+        .set("tokens", action.tokens)
+        .set("claims", action.claims)
+        .set("readerLoading", false);
     case WRITER_ENABLED:
       return state
-        .set('networkWriter', action.networkWriter)
-        .set('networkIdentity', action.networkIdentity)
-        .set('writerLoading', false);
+        .set("networkWriter", action.networkWriter)
+        .set("networkIdentity", action.networkIdentity)
+        .set("writerLoading", false);
     case WRITER_DISABLED:
       return state
-        .set('networkWriter', null)
-        .set('networkAccount', null)
-        .set('networkIdentity', null)
-        .set('writerLoading', false);
+        .set("networkWriter", null)
+        .set("networkAccount", null)
+        .set("networkIdentity", null)
+        .set("writerLoading", false);
     case LOAD_ACCOUNT:
-      return state.set('accountLoading', true);
+      return state.set("accountLoading", true);
     case LOADED_ACCOUNT:
-      return state.set('networkAccount', action.networkAccount).set('accountLoading', false);
+      return state.set("networkAccount", action.networkAccount).set("accountLoading", false);
     case SET_NETWORK:
-      const validTime = state.get('networkTime') + 1000 * 30 < Date.now(); // wait 30 seconds between swaps
-      if (action.override || (!state.get('override') && validTime)) {
+      const validTime = state.get("networkTime") + 1000 * 30 < Date.now(); // wait 30 seconds between swaps
+      if (action.override || (!state.get("override") && validTime)) {
         return state
-          .set('networkSelected', action.networkSelected)
-          .set('networkReader', null)
-          .set('networkWriter', null)
-          .set('readerLoading', true)
-          .set('writerLoading', true)
-          .set('networkTime', Date.now())
-          .set('override', !!action.override);
+          .set("networkSelected", action.networkSelected)
+          .set("networkReader", null)
+          .set("networkWriter", null)
+          .set("readerLoading", true)
+          .set("writerLoading", true)
+          .set("networkTime", Date.now())
+          .set("override", !!action.override);
       }
       return state;
 
     case SET_IDENTITY:
       return state
-        .set('networkWriter', null)
-        .set('networkAccount', null)
-        .set('writerLoading', true);
+        .set("networkWriter", null)
+        .set("networkAccount", null)
+        .set("writerLoading", true);
     case PUSH_TRANSACTION:
-      return state.set('transaction', action.transaction);
+      return state.set("transaction", action.transaction);
     case TOGGLE_OFFLINE:
-      return state.set('offlineMode', !state.get('offlineMode'));
+      return state.set("offlineMode", !state.get("offlineMode"));
+    case UPDATE_DAPPS:
+      return state.set("dapps", action.dapps);
     default:
       return state;
   }

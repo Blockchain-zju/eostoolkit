@@ -1,7 +1,7 @@
-import Eos from 'eosjs';
-import {put, call} from 'redux-saga/effects';
-import {fetchTokens, fetchClaims, fetchIdentity, fetchDapps} from './fetchers';
-import {enableReader, enableWriter, disableWriter} from '../actions';
+import Eos from "eosjs";
+import { put, call } from "redux-saga/effects";
+import { fetchTokens, fetchClaims, fetchIdentity } from "./fetchers";
+import { enableReader, enableWriter, disableWriter } from "../actions";
 
 /*
 *
@@ -17,18 +17,17 @@ export function* buildReader(activeNetwork) {
       broadcast: false,
       sign: false,
       chainId: activeNetwork.network.chainId,
-      keyPrefix: activeNetwork.network.prefix || 'EOS',
-      httpEndpoint: `${activeNetwork.endpoint.protocol}://${activeNetwork.endpoint.url}:${activeNetwork.endpoint.port}`,
+      keyPrefix: activeNetwork.network.prefix || "EOS",
+      httpEndpoint: `${activeNetwork.endpoint.protocol}://${activeNetwork.endpoint.url}:${activeNetwork.endpoint.port}`
     };
 
     const networkReader = yield Eos(networkOptions);
     const tokens = yield call(fetchTokens, networkReader);
     const claims = yield call(fetchClaims);
-    const dapps = yield call(fetchDapps);
 
-    yield put(enableReader(networkReader, tokens, claims, dapps));
+    yield put(enableReader(networkReader, tokens, claims));
   } catch (err) {
-    console.error('An EOSToolkit error occured - see details below:');
+    console.error("An EOSToolkit error occured - see details below:");
     console.error(err);
   }
 }
@@ -49,14 +48,14 @@ export function* buildWriter(signer, activeNetwork) {
       host: activeNetwork.endpoint.url,
       port: activeNetwork.endpoint.port,
       chainId: activeNetwork.network.chainId,
-      keyPrefix: activeNetwork.network.prefix || 'EOS',
+      keyPrefix: activeNetwork.network.prefix || "EOS"
     };
 
     const networkOptions = {
       broadcast: true,
       sign: true,
       chainId: activeNetwork.network.chainId,
-      keyPrefix: activeNetwork.network.prefix || 'EOS',
+      keyPrefix: activeNetwork.network.prefix || "EOS"
     };
     const protocol = activeNetwork.endpoint.protocol;
     const networkWriter = signer.eos(signerClientConfig, Eos, networkOptions, protocol);
@@ -68,7 +67,7 @@ export function* buildWriter(signer, activeNetwork) {
       yield put(disableWriter());
     }
   } catch (err) {
-    console.error('An EOSToolkit error occured - see details below:');
+    console.error("An EOSToolkit error occured - see details below:");
     console.error(err);
   }
 }
