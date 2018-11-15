@@ -15,6 +15,7 @@ import BidName from "components/Features/BidNameForm";
 import Airgrab from "components/Features/AirgrabForm";
 import Donate from "components/Features/DonateForm";
 import VotingTable from "containers/NetworkProducers";
+import DappsPage from "components/Dapps";
 
 // EOSIO FORUM
 import ForumStatus from "components/Features/ForumForms/Status";
@@ -57,13 +58,13 @@ import {
   Settings,
   VpnKey,
   Games,
-  Home
+  Home,
 } from "@material-ui/icons";
 import HorusIcon from "components/Icons/Horus";
 import KarmaIcon from "components/Icons/Karma";
 
 const dashRoutes = [
-  { hide: true, path: "/networks", name: "切换网络", component: Network },
+  {hide: true, path: "/networks", name: "切换网络", component: Network},
   {
     path: "/home",
     name: "首页",
@@ -71,9 +72,10 @@ const dashRoutes = [
     component: FeaturesPage
   },
   {
-    path:"/dapp",
-    name:"DAPP市场",
-    icon:Dashboard,
+    path: "/dapp",
+    name: "DAPP市场",
+    icon: Dashboard,
+    component: DappsPage,
   },
   // {
   //   path: '/grandpacoins',
@@ -261,8 +263,8 @@ const dashRoutes = [
     icon: AccountBalance,
     component: GovernancePage
   },
-  { redirect: true, path: "/", pathTo: "/home", name: "Home" },
-  { redirect: true, path: "/account/buyram", pathTo: "/account/ram", name: "Buy RAM" },
-  { redirect: true, path: "/account/sellram", pathTo: "/account/ram", name: "Sell RAM" }
+  {redirect: true, path: "/", pathTo: "/home", name: "Home"},
+  {redirect: true, path: "/account/buyram", pathTo: "/account/ram", name: "Buy RAM"},
+  {redirect: true, path: "/account/sellram", pathTo: "/account/ram", name: "Sell RAM"}
 ];
 export default dashRoutes;

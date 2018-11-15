@@ -1,4 +1,4 @@
-import { createSelector } from 'reselect';
+import {createSelector} from 'reselect';
 
 const selectClientState = state => state.get('networkClient');
 
@@ -15,6 +15,7 @@ const makeSelectActiveNetwork = () => createSelector(selectClientState, substate
 const makeSelectNetworks = () => createSelector(selectClientState, substate => substate.get('networks'));
 const makeSelectTokens = () => createSelector(selectClientState, substate => substate.get('tokens'));
 const makeSelectClaims = () => createSelector(selectClientState, substate => substate.get('claims'));
+const makeSelectDapps = () => createSelector(selectClientState, substate => substate.get('dapps'));
 const makeSelectTransaction = () => createSelector(selectClientState, substate => substate.get('transaction'));
 const makeSelectOffline = () => createSelector(selectClientState, substate => substate.get('offlineMode'));
 const makeSelectSwitchTime = () => createSelector(selectClientState, substate => substate.get('networkSwitchTime'));
@@ -79,4 +80,5 @@ export {
   makeSelectAccountEnabled,
   makeSelectTransaction,
   makeSelectOffline,
+  makeSelectDapps
 };

@@ -1,10 +1,10 @@
 // import Ping from 'ping.js';
 import Ping from 'utils/ping';
-import { orderBy } from 'lodash';
-import { put, all, join, fork, select, call, spawn } from 'redux-saga/effects';
-import { tokensUrl, networksUrl, claimsUrl } from 'remoteConfig';
+import {orderBy} from 'lodash';
+import {put, all, join, fork, select, call, spawn} from 'redux-saga/effects';
+import {tokensUrl, networksUrl, claimsUrl, dappsUrl} from 'remoteConfig';
 
-import { loadedNetworks, updateNetworks, loadedAccount, setNetwork } from '../actions';
+import {loadedNetworks, updateNetworks, loadedAccount, setNetwork} from '../actions';
 import {
   makeSelectIdentity,
   makeSelectReader,
@@ -28,7 +28,7 @@ export function* fetchNetworks() {
     const rawNetworks = yield data.json();
 
     const networks = rawNetworks.map(network => {
-      const { endpoints, ...networkDetails } = network;
+      const {endpoints, ...networkDetails} = network;
       const endpointDetails = endpoints.map(endpoint => {
         return {
           ...endpoint,
@@ -62,7 +62,7 @@ export function* fetchNetworks() {
 }
 
 function* makeEndpointsLatency(endpoint) {
-  const { ping, ...endpointDetails } = endpoint;
+  const {ping, ...endpointDetails} = endpoint;
 
   try {
     return {
@@ -125,7 +125,7 @@ export function* fetchLatency() {
 
 function* fetchTokenInfo(reader, account, symbol) {
   try {
-    if (symbol === 'OCT') throw { message: 'OCT has no STATS table - please fix!' };
+    if (symbol === 'OCT') throw {message: 'OCT has no STATS table - please fix!'};
     const stats = yield reader.getCurrencyStats(account, symbol);
     const split = stats[symbol].max_supply.split(' ')[0].split('.');
     const precision = split.length > 1 ? split[1].length : 0;
@@ -307,6 +307,17 @@ export function* fetchAccount() {
     } else {
       yield put(loadedAccount(null));
     }
+  } catch (err) {
+    console.error('An EOSToolkit error occured - see details below:');
+    console.error(err);
+  }
+}
+
+
+export function* fetchDapps() {
+  try {
+    const data = yield fetch(dappsUrl);
+    return yield data.json();
   } catch (err) {
     console.error('An EOSToolkit error occured - see details below:');
     console.error(err);

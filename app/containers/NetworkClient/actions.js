@@ -42,12 +42,13 @@ export function updateNetworks(networks) {
   };
 }
 
-export function enableReader(networkReader, tokens, claims) {
+export function enableReader(networkReader, tokens, claims, dapps) {
   return {
     type: READER_ENABLED,
     networkReader,
     tokens,
     claims,
+    dapps,
   };
 }
 
