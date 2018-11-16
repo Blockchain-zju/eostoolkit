@@ -23,8 +23,8 @@ export const Dapp = props => {
       <Card className={classes.card}>
         <img src={scatter} className={classes.icon}/>
         <div className={classes.info}>
-          <div className={classes.name} title={name}>{name}sdfdsfdsfdsf</div>
-          <div className={classes.abstract} title={abstract}>{abstract}sdfdsfdsfdsfsdf</div>
+          <div className={classes.name} title={name}>{name}</div>
+          <div className={classes.abstract} title={abstract}>{abstract}</div>
         </div>
       </Card>
     </div>

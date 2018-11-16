@@ -1,13 +1,17 @@
 import React from "react";
 import { compose } from "redux";
 import { connect } from "react-redux";
+import Slider from "react-slick";
+
 import withStyles from "@material-ui/core/styles/withStyles";
 
 import Modal from "@material-ui/core/Modal";
+import Button from "@material-ui/core/Button";
 
 import { createStructuredSelector } from "reselect";
 import { makeSelectDapps } from "../../containers/NetworkClient/selectors";
 import { loadDapps } from "../../containers/NetworkClient/actions";
+import Scatter from "assets/img/scatter.png";
 
 import Dapp from "./Dapp";
 import dappStyle from "./DappStyle";
@@ -37,14 +41,22 @@ class Dapps extends React.Component {
   };
 
   render() {
+    const carouselSettings = {
+      infinite: true,
+      autoplay: true,
+      autoplaySpeed: 5000,
+      speed: 500,
+      slidesToShow: 1,
+      slidesToScroll: 1
+    };
+
     const { dapps, classes } = this.props;
-    if (dapps.length < 20) {
-      for (let i = 0; i < 20; i++) {
-        dapps.push(dapps[0]);
-      }
-    }
 
     const modalDapp = dapps[this.state.active];
+    // clip the images of dapp
+    if (modalDapp && modalDapp.images.length > 5) {
+      modalDapp.images = modalDapp.images.slice(0, 5);
+    }
     // TODO: style
     return (
       <div className={classes.market}>
@@ -64,13 +76,29 @@ class Dapps extends React.Component {
         >
           {modalDapp ? (
             <div className={classes.modal}>
-              <div>{modalDapp.name}</div>
-              <div>{modalDapp.icon}</div>
-              <div>{modalDapp.abstract}</div>
-              <div>{modalDapp.intro}</div>
-              <div>{modalDapp.url}</div>
-              <div>{modalDapp.author}</div>
-              <div>{modalDapp.images}</div>
+              <div className={classes.infoBox}>
+                <img src={Scatter} className={classes.detailIcon}/>
+                <div className={classes.detailName}>{modalDapp.name}</div>
+                <div className={classes.detailAuthor}>{modalDapp.author}</div>
+                <div className={classes.detailAbst}>{modalDapp.abstract}</div>
+                <a href={modalDapp.url} className={classes.link} target="_blank">
+                  <Button variant="contained"
+                          color="secondary"
+                          className={classes.detailBtn}>
+                    前往
+                  </Button></a>
+              </div>
+              <hr/>
+              <div>
+                {modalDapp.images.length > 0 ? (
+                  <Slider {...carouselSettings}>
+                    {modalDapp.images.map(item => (
+                      <img src={item} className={classes.image}/>
+                    ))}
+                  </Slider>
+                ) : null}
+              </div>
+              <div className={classes.detailInfo}>{modalDapp.intro}</div>
             </div>
           ) : null}
         </Modal>

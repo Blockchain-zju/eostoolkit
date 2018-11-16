@@ -43,7 +43,54 @@ const dappStyle = {
     width: 680,
     margin: "100px auto",
     background: "white",
-    padding: 20
+    padding: "20px 30px"
+  },
+  infoBox: {
+    position: "relative"
+  },
+  detailIcon: {
+    width: 100,
+    height: 100,
+    position: "absolute"
+  },
+  detailName: {
+    whiteSpace: "nowrap",
+    textOverflow: "ellipsis",
+    overflow: "hidden",
+    paddingTop: 5,
+    paddingRight: 110,
+    margin: "20px 0 0 120px",
+    fontSize: 28,
+    fontWeight: "bold"
+  },
+  detailAuthor: {
+    whiteSpace: "nowrap",
+    textOverflow: "ellipsis",
+    overflow: "hidden",
+    fontSize: 16,
+    paddingRight: 110,
+    margin: "10px 0 0 120px"
+  },
+  detailAbst: {
+    whiteSpace: "nowrap",
+    textOverflow: "ellipsis",
+    overflow: "hidden",
+    margin: "12px 0 0 120px",
+    fontSize: 18
+  },
+  detailBtn: {
+    position: "absolute",
+    top: 0,
+    right: 0
+  },
+  link: {
+    color: "white"
+  },
+  image: {
+    height: 300
+  },
+  detailInfo: {
+    marginTop: 20
   }
 };
 
