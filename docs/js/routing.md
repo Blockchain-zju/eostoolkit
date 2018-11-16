@@ -33,8 +33,8 @@ For example, if you have a route called `about` at `/about` and want to make a c
 in `App.js` to create a `Switch` within the parent component. Also remove the `exact` property from the `about` parent route.
 
 ```JS
-// AboutPage/index.js
-import { Switch, Route } from 'react-router-dom';
+index.js
+impindex.jsxitch, Route } from 'react-router-dom';
 
 class AboutPage extends React.PureComponent {
   render() {
