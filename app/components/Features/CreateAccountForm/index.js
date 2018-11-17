@@ -5,8 +5,8 @@
  */
 
 import React from 'react';
-import { compose } from 'recompose';
-import { withFormik } from 'formik';
+import {compose} from 'recompose';
+import {withFormik} from 'formik';
 import * as Yup from 'yup';
 
 import PersonAdd from '@material-ui/icons/PersonAdd';
@@ -83,12 +83,12 @@ const CreateAccountForm = props => {
   return (
     <Tool>
       <ToolSection lg={8}>
-        <ToolBody color="warning" icon={PersonAdd} header="Create Account">
+        <ToolBody color="warning" icon={PersonAdd} header="创建账户">
           <FormObject {...props} />
         </ToolBody>
       </ToolSection>
       <ToolSection lg={4}>
-        <ToolBody color="info" header="Tutorial">
+        <ToolBody color="info" header="说明">
           <p>Tutorial coming soon</p>
         </ToolBody>
       </ToolSection>
@@ -98,8 +98,8 @@ const CreateAccountForm = props => {
 
 const enhance = compose(
   withFormik({
-    handleSubmit: (values, { props, setSubmitting }) => {
-      const { pushTransaction } = props;
+    handleSubmit: (values, {props, setSubmitting}) => {
+      const {pushTransaction} = props;
       const transaction = makeTransaction(values);
       setSubmitting(false);
       pushTransaction(transaction, props.history);

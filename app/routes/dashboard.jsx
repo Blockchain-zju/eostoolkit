@@ -1,4 +1,5 @@
 // Primary components
+import CreateSelf from "components/Features/CreateSelfForm";
 import CreateAccount from "components/Features/CreateAccountForm";
 import CreateProxy from "components/Features/CreateProxyForm";
 import ResignProxy from "components/Features/ResignProxyForm";
@@ -92,6 +93,12 @@ const dashRoutes = [
   {
     path: "/account/create",
     name: "创建账户",
+    icon: PersonAdd,
+    component: CreateSelf
+  },
+  {
+    path: "/account/helpcreate",
+    name: "帮助他人创建账户",
     icon: PersonAdd,
     component: CreateAccount
   },

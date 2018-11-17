@@ -31,7 +31,7 @@ export class NetworkClient extends React.Component {
       }
     });
 
-    this.interval = setInterval(() => this.props.loadAccount(), 10000);
+    this.interval = setInterval(() => this.props.loadAccount(), 15000);
   }
 
   componentWillUnmount() {
