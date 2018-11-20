@@ -1,7 +1,7 @@
-import axios from 'axios'
+import axios from "axios";
 
 const instance = axios.create({
-  baseURL: 'https://119.29.162.64',
+  baseURL: "http://zjubca.org:3031",
   timeout: 30000
 });
 
