@@ -78,7 +78,7 @@ const enhance = compose(
         alert(`创建账户失败，错误信息：${e.message}`)
       }
     },
-    mapPropsToValues: props => ({
+    mapPropsToValues: () => ({
       name: '',
       pubKey: '',
       inviteCode: '',
