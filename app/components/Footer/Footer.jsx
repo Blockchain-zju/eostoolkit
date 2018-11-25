@@ -35,11 +35,11 @@ function Footer({ ...props }) {
                 {'GitHub'}
               </a>
             </ListItem>
-            {/*<ListItem className={classes.inlineBlock}>*/}
-              {/*<a href="https://steemit.com/@genereos" target="new" className={block}>*/}
-                {/*{'Steemit'}*/}
-              {/*</a>*/}
-            {/*</ListItem>*/}
+            <ListItem className={classes.inlineBlock}>
+              <a href="https://docs.zjubca.org" target="new" className={block}>
+                {'ZJUBCA.DOCS'}
+              </a>
+            </ListItem>
             {/*<ListItem className={classes.inlineBlock}>*/}
               {/*<a href="https://www.facebook.com/generEOS" target="new" className={block}>*/}
                 {/*{'Facebook'}*/}
