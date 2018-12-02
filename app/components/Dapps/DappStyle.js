@@ -1,4 +1,4 @@
-import { defaultFont, container, containerFluid, primaryColor } from "assets/jss/material-dashboard-pro-react";
+import {defaultFont, container, containerFluid, primaryColor} from "assets/jss/material-dashboard-pro-react";
 
 const dappStyle = {
   market: {
@@ -58,6 +58,7 @@ const dappStyle = {
     textOverflow: "ellipsis",
     overflow: "hidden",
     paddingTop: 5,
+    paddingBottom: 5,
     paddingRight: 110,
     margin: "20px 0 0 120px",
     fontSize: 28,
@@ -69,7 +70,7 @@ const dappStyle = {
     overflow: "hidden",
     fontSize: 16,
     paddingRight: 110,
-    margin: "10px 0 0 120px"
+    margin: "5px 0 0 120px"
   },
   detailAbst: {
     whiteSpace: "nowrap",
