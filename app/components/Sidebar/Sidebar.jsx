@@ -141,22 +141,6 @@ class Sidebar extends React.Component {
         </ListItem>
       </List>
     );
-    const vote = (
-      <List className={classes.list} style={{ marginBottom: '-20px' }}>
-        <ListItem className={classes.item}>
-          <div className={classes.itemLink}>
-            <ListItemIcon className={classes.itemIcon}>
-              <GenereosIcon />
-            </ListItemIcon>
-            <ListItemText
-              primary={<VoteUs className={classes.itemText} />}
-              disableTypography
-              className={classes.itemText}
-            />
-          </div>
-        </ListItem>
-      </List>
-    );
     const links = (
       <List className={classes.list}>
         {routes.map(prop => {
@@ -298,7 +282,7 @@ class Sidebar extends React.Component {
               keepMounted: true, // Better open performance on mobile.
             }}>
             {brand}
-            <SidebarWrapper className={sidebarWrapper} user={user} status={status} links={links} headerLinks={vote} />
+            <SidebarWrapper className={sidebarWrapper} user={user} status={status} links={links}/>
             {image !== undefined ? (
               <div className={classes.background} style={{ backgroundImage: `url(${image})` }} />
             ) : null}
