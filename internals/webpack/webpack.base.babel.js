@@ -4,6 +4,7 @@
 
 const path = require('path');
 const webpack = require('webpack');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 // Remove this line once the following warning goes away (it was meant for webpack loader authors not users):
 // 'DeprecationWarning: loaderUtils.parseQuery() received a non-string value which can be problematic,
@@ -47,7 +48,10 @@ module.exports = options => ({
         // Preprocess 3rd party .css files located in node_modules
         test: /\.css$/,
         include: /node_modules/,
-        use: ['style-loader', 'css-loader'],
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: 'css-loader'
+        }),
       },
       {
         test: /\.(eot|svg|otf|ttf|woff|woff2)$/,
@@ -105,6 +109,7 @@ module.exports = options => ({
       },
     }),
     new webpack.NamedModulesPlugin(),
+    new ExtractTextPlugin("[name].[chunkhash].css"),
   ]),
   resolve: {
     modules: ['app', 'node_modules'],

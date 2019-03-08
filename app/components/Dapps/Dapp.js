@@ -6,8 +6,6 @@ import PropTypes from "prop-types";
 
 import dappStyle from "./DappStyle";
 
-// for test
-import scatter from "assets/img/scatter.png";
 
 export const Dapp = props => {
   const {
@@ -21,7 +19,7 @@ export const Dapp = props => {
   return (
     <div className={classes.item} onClick={modalOpen}>
       <Card className={classes.card}>
-        <img src={scatter} className={classes.icon}/>
+        <img src={icon} className={classes.icon}/>
         <div className={classes.info}>
           <div className={classes.name} title={name}>{name}</div>
           <div className={classes.abstract} title={abstract}>{abstract}</div>

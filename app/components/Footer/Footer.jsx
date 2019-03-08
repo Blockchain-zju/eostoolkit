@@ -36,35 +36,35 @@ function Footer({ ...props }) {
               </a>
             </ListItem>
             <ListItem className={classes.inlineBlock}>
-              <a href="https://steemit.com/@genereos" target="new" className={block}>
-                {'Steemit'}
+              <a href="https://docs.zjubca.org" target="new" className={block}>
+                {'ZJUBCA.DOCS'}
               </a>
             </ListItem>
-            <ListItem className={classes.inlineBlock}>
-              <a href="https://www.facebook.com/generEOS" target="new" className={block}>
-                {'Facebook'}
-              </a>
-            </ListItem>
-            <ListItem className={classes.inlineBlock}>
-              <a href="https://www.reddit.com/r/GenerEOS/" target="new" className={block}>
-                {'Reddit'}
-              </a>
-            </ListItem>
-            <ListItem className={classes.inlineBlock}>
-              <a href="https://twitter.com/genereossydney" target="new" className={block}>
-                {'Twitter'}
-              </a>
-            </ListItem>
-            <ListItem className={classes.inlineBlock}>
-              <a href="https://www.youtube.com/channel/UCFHa6AJmcZBjXGILF2EZnHQ" target="new" className={block}>
-                {'YouTube'}
-              </a>
-            </ListItem>
-            <ListItem className={classes.inlineBlock}>
-              <a href="https://t.me/generEOS" target="new" className={block}>
-                {'Telegram'}
-              </a>
-            </ListItem>
+            {/*<ListItem className={classes.inlineBlock}>*/}
+              {/*<a href="https://www.facebook.com/generEOS" target="new" className={block}>*/}
+                {/*{'Facebook'}*/}
+              {/*</a>*/}
+            {/*</ListItem>*/}
+            {/*<ListItem className={classes.inlineBlock}>*/}
+              {/*<a href="https://www.reddit.com/r/GenerEOS/" target="new" className={block}>*/}
+                {/*{'Reddit'}*/}
+              {/*</a>*/}
+            {/*</ListItem>*/}
+            {/*<ListItem className={classes.inlineBlock}>*/}
+              {/*<a href="https://twitter.com/genereossydney" target="new" className={block}>*/}
+                {/*{'Twitter'}*/}
+              {/*</a>*/}
+            {/*</ListItem>*/}
+            {/*<ListItem className={classes.inlineBlock}>*/}
+              {/*<a href="https://www.youtube.com/channel/UCFHa6AJmcZBjXGILF2EZnHQ" target="new" className={block}>*/}
+                {/*{'YouTube'}*/}
+              {/*</a>*/}
+            {/*</ListItem>*/}
+            {/*<ListItem className={classes.inlineBlock}>*/}
+              {/*<a href="https://t.me/generEOS" target="new" className={block}>*/}
+                {/*{'Telegram'}*/}
+              {/*</a>*/}
+            {/*</ListItem>*/}
           </List>
         </div>
         <p className={classes.right}>

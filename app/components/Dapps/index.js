@@ -1,6 +1,6 @@
 import React from "react";
-import { compose } from "redux";
-import { connect } from "react-redux";
+import {compose} from "redux";
+import {connect} from "react-redux";
 import Slider from "react-slick";
 
 import withStyles from "@material-ui/core/styles/withStyles";
@@ -8,10 +8,9 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import Modal from "@material-ui/core/Modal";
 import Button from "@material-ui/core/Button";
 
-import { createStructuredSelector } from "reselect";
-import { makeSelectDapps } from "../../containers/NetworkClient/selectors";
-import { loadDapps } from "../../containers/NetworkClient/actions";
-import Scatter from "assets/img/scatter.png";
+import {createStructuredSelector} from "reselect";
+import {makeSelectDapps} from "../../containers/NetworkClient/selectors";
+import {loadDapps} from "../../containers/NetworkClient/actions";
 
 import Dapp from "./Dapp";
 import dappStyle from "./DappStyle";
@@ -50,7 +49,7 @@ class Dapps extends React.Component {
       slidesToScroll: 1
     };
 
-    const { dapps, classes } = this.props;
+    const {dapps, classes} = this.props;
 
     const modalDapp = dapps[this.state.active];
     // clip the images of dapp
@@ -77,7 +76,7 @@ class Dapps extends React.Component {
           {modalDapp ? (
             <div className={classes.modal}>
               <div className={classes.infoBox}>
-                <img src={Scatter} className={classes.detailIcon}/>
+                <img src={modalDapp.icon} className={classes.detailIcon}/>
                 <div className={classes.detailName}>{modalDapp.name}</div>
                 <div className={classes.detailAuthor}>{modalDapp.author}</div>
                 <div className={classes.detailAbst}>{modalDapp.abstract}</div>
@@ -98,7 +97,7 @@ class Dapps extends React.Component {
                   </Slider>
                 ) : null}
               </div>
-              <div className={classes.detailInfo}>{modalDapp.intro}</div>
+              <div className={classes.detailInfo} dangerouslySetInnerHTML={{__html: modalDapp.intro}}></div>
             </div>
           ) : null}
         </Modal>
